@@ -1,9 +1,12 @@
 import { useState } from "react";
-import Logo from "./components/navbar/Logo";
 import Search from "./components/navbar/Search";
 import NumResults from "./components/navbar/NumResults";
-import WatchedMovies from "./components/watched-movies";
-import Movies from "./components/movies";
+import Navbar from "./components/navbar";
+import Main from "./components/main";
+import ListBox from "./components/shared/list-box";
+import WatchedSummary from "./components/watched-movies/WatchedSummary";
+import WatchedItems from "./components/watched-movies/WatchedItems";
+import MoviesList from "./components/movies/MoviesList";
 
 const tempMovieData = [
   {
@@ -58,16 +61,26 @@ export default function App() {
 
   return (
     <>
-      <nav className="nav-bar">
-        <Logo />
+      <Navbar>
         <Search />
         <NumResults movies={movies} />
-      </nav>
+      </Navbar>
+      <Main>
+        <ListBox>
+          <MoviesList movies={movies} />
+        </ListBox>
+        <ListBox>
+          <>
+            <WatchedSummary watched={watched} />
 
-      <main className="main">
-        <Movies movies={movies} />
-        <WatchedMovies watched={watched} />
-      </main>
+            <ul className="list">
+              {watched.map((movie) => (
+                <WatchedItems key={movie.imdbID} movie={movie} />
+              ))}
+            </ul>
+          </>
+        </ListBox>
+      </Main>
     </>
   );
 }
