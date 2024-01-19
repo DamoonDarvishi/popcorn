@@ -1,11 +1,14 @@
-import React from "react";
 import MovieItems from "./MovieItems";
 
-function MoviesList({ movies }) {
+function MoviesList({ movies, onSelectMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies.map((movie) => (
-        <MovieItems key={movie.imdbID} movie={movie} />
+        <MovieItems
+          key={movie.imdbID}
+          movie={movie}
+          onSelectMovie={onSelectMovie}
+        />
       ))}
     </ul>
   );
