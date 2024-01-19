@@ -1,5 +1,4 @@
 function WatchedItems({ movie, onDeleteWatched }) {
-  console.log(movie);
   return (
     <li key={movie.imdbID}>
       <img src={movie.poster} alt={`${movie.title} poster`} />
