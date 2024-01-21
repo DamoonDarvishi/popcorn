@@ -11,7 +11,7 @@ import StarRating from "./StarRating";
 
 const KEY = "3283f558";
 export default function App() {
-  const [query, setQuery] = useState("inception");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
