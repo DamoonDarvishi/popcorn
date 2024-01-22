@@ -8,15 +8,13 @@ import WatchedSummary from "./components/watched-movies/WatchedSummary";
 import WatchedItems from "./components/watched-movies/WatchedItems";
 import MoviesList from "./components/movies/MoviesList";
 import StarRating from "./StarRating";
+import { useMovies } from "./hooks/useMovies";
 
 const KEY = "3283f558";
 export default function App() {
-  const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [query, setQuery] = useState("inception");
   const [selectedId, setSelectedId] = useState(null);
-  // const [watched, setWatched] = useState([]);
+  const { movies, isLoading, error } = useMovies(query);
   const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
@@ -65,45 +63,45 @@ export default function App() {
     [watched]
   );
 
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-          const data = await res.json();
-          if (data.Response === "false") throw new Error("Movies not found!");
-          setMovies(data.Search);
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            setError(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
+  // useEffect(
+  //   function () {
+  //     const controller = new AbortController();
+  //     async function fetchMovies() {
+  //       try {
+  //         setIsLoading(true);
+  //         const res = await fetch(
+  //           `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+  //           { signal: controller.signal }
+  //         );
+  //         if (!res.ok)
+  //           throw new Error("Something went wrong with fetching movies");
+  //         const data = await res.json();
+  //         if (data.Response === "false") throw new Error("Movies not found!");
+  //         setMovies(data.Search);
+  //       } catch (err) {
+  //         if (err.name !== "AbortError") {
+  //           setError(err.message);
+  //         }
+  //       } finally {
+  //         setIsLoading(false);
+  //       }
+  //     }
 
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
+  //     if (query.length < 3) {
+  //       setMovies([]);
+  //       setError("");
+  //       return;
+  //     }
 
-      handleCloseMovie();
-      fetchMovies();
+  //     handleCloseMovie();
+  //     fetchMovies();
 
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
-  );
+  //     return function () {
+  //       controller.abort();
+  //     };
+  //   },
+  //   [query]
+  // );
 
   return (
     <>
