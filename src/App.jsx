@@ -10,6 +10,7 @@ import MoviesList from "./components/movies/MoviesList";
 import StarRating from "./StarRating";
 import { useMovies } from "./hooks/useMovies";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
+import { useKey } from "./hooks/useKey";
 
 const KEY = "3283f558";
 export default function App() {
@@ -128,21 +129,21 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie();
   }
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          console.log("cleanup");
-          onCloseMovie();
-        }
-      }
-      document.addEventListener("keydown", callback);
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
+  useKey("Escape", onCloseMovie);
+  // useEffect(
+  //   function () {
+  //     function callback(e) {
+  //       if (e.code === "Escape") {
+  //         onCloseMovie();
+  //       }
+  //     }
+  //     document.addEventListener("keydown", callback);
+  //     return function () {
+  //       document.removeEventListener("keydown", callback);
+  //     };
+  //   },
+  //   [onCloseMovie]
+  // );
 
   useEffect(
     function () {
