@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // const KEY = process.env.APIKEY;
 const KEY = "3283f558";
-
+const URL = process.env.BASE_URL;
 export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,10 +14,9 @@ export function useMovies(query) {
       async function fetchMovies() {
         try {
           setIsLoading(true);
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
+          const res = await fetch(`${URL}?apikey=${KEY}&s=${query}`, {
+            signal: controller.signal,
+          });
           // console.log({ res }, res.json());
           if (!res.ok)
             throw new Error("Something went wrong with fetching movies");

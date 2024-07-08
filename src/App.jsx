@@ -13,7 +13,7 @@ import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import { useKey } from "./hooks/useKey";
 
 const KEY = "3283f558";
-
+const URL = process.env.BASE_URL;
 export default function App() {
   const [query, setQuery] = useState("inception");
   const [selectedId, setSelectedId] = useState(null);
@@ -150,9 +150,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     function () {
       async function getMovieDetails() {
         setIsLoading(true);
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
-        );
+        const res = await fetch(`${URL}/?apikey=${KEY}&i=${selectedId}`);
         const data = await res.json();
         setMovie(data);
         setIsLoading(false);
