@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 // const KEY = process.env.APIKEY;
-const KEY = "3283f558";
-const URL = process.env.BASE_URL;
+
 export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const KEY = process.env.REACT_APP_APIKEY;
+  const URL = process.env.REACT_APP_BASE_URL;
   useEffect(
     function () {
       const controller = new AbortController();

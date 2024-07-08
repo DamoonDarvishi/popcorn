@@ -12,8 +12,9 @@ import { useMovies } from "./hooks/useMovies";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import { useKey } from "./hooks/useKey";
 
-const KEY = "3283f558";
-const URL = process.env.BASE_URL;
+const KEY = process.env.REACT_APP_APIKEY;
+const URL = process.env.REACT_APP_BASE_URL;
+
 export default function App() {
   const [query, setQuery] = useState("inception");
   const [selectedId, setSelectedId] = useState(null);
