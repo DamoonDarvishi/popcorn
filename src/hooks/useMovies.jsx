@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-// const KEY = process.env.APIKEY;
+// const KEY = process.env.API_KEY;
 
 export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const KEY = process.env.REACT_APP_APIKEY;
+  const KEY = process.env.REACT_APP_API_KEY;
   const URL = process.env.REACT_APP_BASE_URL;
   useEffect(
     function () {
@@ -14,7 +14,7 @@ export function useMovies(query) {
       async function fetchMovies() {
         try {
           setIsLoading(true);
-          const res = await fetch(`${URL}?apikey=${KEY}&s=${query}`, {
+          const res = await fetch(`${URL}?API_KEY=${KEY}&s=${query}`, {
             signal: controller.signal,
           });
           // console.log({ res }, res.json());
