@@ -13,6 +13,7 @@ import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import { useKey } from "./hooks/useKey";
 
 const KEY = "3283f558";
+
 export default function App() {
   const [query, setQuery] = useState("inception");
   const [selectedId, setSelectedId] = useState(null);

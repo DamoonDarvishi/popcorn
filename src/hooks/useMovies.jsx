@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// const KEY = process.env.APIKEY;
 const KEY = "3283f558";
 
 export function useMovies(query) {
@@ -17,10 +18,11 @@ export function useMovies(query) {
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal }
           );
+          // console.log({ res }, res.json());
           if (!res.ok)
             throw new Error("Something went wrong with fetching movies");
           const data = await res.json();
-          if (data.Response === "false") throw new Error("Movies not found!");
+          if (data.Response === "False") throw new Error("Movies not found!");
           setMovies(data.Search);
         } catch (err) {
           if (err.name !== "AbortError") {
