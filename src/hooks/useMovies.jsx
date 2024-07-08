@@ -6,17 +6,18 @@ export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const KEY = process.env.REACT_APP_API_KEY;
-  const URL = process.env.REACT_APP_BASE_URL;
   useEffect(
     function () {
       const controller = new AbortController();
       async function fetchMovies() {
         try {
           setIsLoading(true);
-          const res = await fetch(`${URL}?API_KEY=${KEY}&s=${query}`, {
-            signal: controller.signal,
-          });
+          const res = await fetch(
+            `http://www.omdbapi.com?API_KEY=3283f558&s=${query}`,
+            {
+              signal: controller.signal,
+            }
+          );
           // console.log({ res }, res.json());
           if (!res.ok)
             throw new Error("Something went wrong with fetching movies");
